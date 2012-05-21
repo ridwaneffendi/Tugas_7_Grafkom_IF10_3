@@ -1,4 +1,4 @@
-/* Tugas 5 OpenGL
+/* Tugas 7 Grafika Komputer
    Oleh :             
         Ridwan Effendi		10108479
         Anggi Mondera Amino	10108501
