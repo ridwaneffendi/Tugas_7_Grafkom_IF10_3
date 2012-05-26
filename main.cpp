@@ -399,6 +399,31 @@ void ChangeSize(int w, int h)
     
     glLightfv(GL_LIGHT0,GL_POSITION,lightPos);
     glTranslatef(0.0f, 0.0f, -50.0f);
+}   
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(600,600);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow(".:OpenGL - 5 Pohon 		(klik kanan mouse)");
+	
+	glutCreateMenu(ProcessMenu);
+	glutAddMenuEntry("simple fractal tree",DRAW_FIRST);
+	glutAddMenuEntry("rain forest tree",DRAW_SECOND);
+    glutAddMenuEntry("auntumn tree",DRAW_THIRD);
+	glutAddMenuEntry("poor pine tree",DRAW_FOURTH);
+	glutAddMenuEntry("pandanus tree",DRAW_FIFTH);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+    glutReshapeFunc(ChangeSize);
+    glutSpecialFunc(SpecialKeys);
+    glutDisplayFunc(RenderScene);
+    SetupRC();
+    glutMainLoop();
+
+    return 0;
+
 }
 
 
