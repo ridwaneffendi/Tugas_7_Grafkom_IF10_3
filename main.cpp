@@ -349,5 +349,80 @@ void SetupRC()
     
     glEnable(GL_NORMALIZE);
 }
+void SpecialKeys(int key, int x, int y)
+{
+    if(key == GLUT_KEY_UP)
+        xRot-= 5.0f;
 
+    if(key == GLUT_KEY_DOWN)
+        xRot += 5.0f;
+
+    if(key == GLUT_KEY_LEFT)
+        yRot -= 5.0f;
+
+    if(key == GLUT_KEY_RIGHT)
+        yRot += 5.0f;
+
+    if(key > 356.0f)
+        xRot = 0.0f;
+
+    if(key < -1.0f)
+        xRot = 355.0f;
+
+    if(key > 356.0f)
+        yRot = 0.0f;
+
+    if(key < -1.0f)
+        yRot = 355.0f;
+
+    glutPostRedisplay();
+}
+
+void ChangeSize(int w, int h)
+{
+    GLfloat fAspect;
+    GLfloat lightPos[] = { -50.f, 50.0f, 100.0f, 1.0f };
+
+    if(h == 0)
+        h = 1;
+
+    glViewport(0, 0, w, h);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    fAspect = (GLfloat) w / (GLfloat) h;
+    gluPerspective(45.0f, fAspect, 1.0f, 225.0f);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    
+    glLightfv(GL_LIGHT0,GL_POSITION,lightPos);
+    glTranslatef(0.0f, 0.0f, -50.0f);
+}
+
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(600,600);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow(".:OpenGL - 5 Fractal Tree:.        (right click the mouse)");
+	
+	glutCreateMenu(ProcessMenu);
+	glutAddMenuEntry("simple fractal tree",DRAW_FIRST);
+	glutAddMenuEntry("rain forest tree",DRAW_SECOND);
+    glutAddMenuEntry("auntumn tree",DRAW_THIRD);
+	glutAddMenuEntry("poor pine tree",DRAW_FOURTH);
+	glutAddMenuEntry("pandanus tree",DRAW_FIFTH);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+    glutReshapeFunc(ChangeSize);
+    glutSpecialFunc(SpecialKeys);
+    glutDisplayFunc(RenderScene);
+    SetupRC();
+    glutMainLoop();
+
+    return 0;
+}
 
